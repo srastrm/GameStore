@@ -1,0 +1,53 @@
+﻿@model WebStore.ViewModels.ProductIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Browse by category</h2>
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+
+    <p>
+        @Html.ActionLink("Create New", "CreateCategory")
+    </p>
+}
+else
+{
+    <p></p>
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var category in Model.Categories)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink(
+            linkText: category.Name,
+            actionName: "Category",
+            controllerName: "Product",
+            routeValues: new { id = category.CategoryId },
+            htmlAttributes: null)
+        <td>
+            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            {
+
+            <td>
+                @Html.ActionLink("Edit", "EditCategory", new { Id = category.CategoryId }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id = category.CategoryId }, new { onclick = "return confirm('Are you sure?');" })
+            </td>
+        }
+        else
+        {
+            <td></td>
+        }
+        </tr>
+    }
+
+</table>

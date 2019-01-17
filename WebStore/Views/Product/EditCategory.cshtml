@@ -1,0 +1,30 @@
+﻿@model WebStore.ViewModels.EditCategoryViewModel
+@{
+    ViewBag.Title = "EditCategory";
+}
+
+<h2>Edit Category</h2>
+
+<p>
+    @Html.ActionLink("Back to list", "Index", new { })
+</p>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>Name</td>
+            <td>
+                @Html.HiddenFor(c => c.CategoryId)
+                @Html.TextBoxFor(c => c.Name)
+                @Html.ValidationMessageFor(c => c.Name)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Save" />
+}

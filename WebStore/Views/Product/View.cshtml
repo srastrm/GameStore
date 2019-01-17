@@ -1,0 +1,32 @@
+﻿@model WebStore.ViewModels.ProductViewViewModel
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Product Details</h2>
+
+<p>
+    <a href="javascript:history.back()">Back to List</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>@Model.Price</td>
+    </tr>
+    <tr>
+
+</table>

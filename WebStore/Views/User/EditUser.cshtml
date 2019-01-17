@@ -1,0 +1,45 @@
+﻿@model WebStore.ViewModels.EditUserViewModel
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2>Edit User</h2>
+
+<p>
+    <a href="javascript:history.back()">Back to List</a>
+</p>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>Username</td>
+            <td>
+                @Html.HiddenFor(p => p.UserId)
+                @Html.TextBoxFor(p => p.UserName)
+                @Html.ValidationMessageFor(p => p.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                @Html.TextBoxFor(p => p.Email)
+                @Html.ValidationMessageFor(p => p.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td>
+                @Html.DropDownListFor(p => p.UserRoleId,
+        new SelectList(Model.Roles, "Value", "Text"), "- Please Select -")
+        @Html.ValidationMessageFor(p => p.UserRoleId)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Save" />
+}

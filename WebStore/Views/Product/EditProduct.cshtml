@@ -1,0 +1,52 @@
+﻿@model WebStore.ViewModels.ProductEditViewModel
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+<h2>Edit Product</h2>
+
+<p>
+    @Html.ActionLink("Back to list", "Products", new { })
+</p>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+<table class="table">
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>
+            @Html.HiddenFor(p => p.ProductId)
+            @Html.TextBoxFor(p => p.Name)
+            @Html.ValidationMessageFor(p => p.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>
+            @Html.TextAreaFor(p => p.Description)
+            @Html.ValidationMessageFor(p => p.Description)
+        </td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>
+            @Html.TextBoxFor(p => p.Price)
+            @Html.ValidationMessageFor(p => p.Price)
+        </td>
+    </tr>
+    <tr>
+        <td>Category</td>
+        <td>
+            @Html.DropDownListFor(p => p.SelectedCategoryId,
+            new SelectList(Model.Categories, "CategoryId", "Name"), "- Please Select -")
+            @Html.ValidationMessageFor(p => p.SelectedCategoryId)
+        </td>
+    </tr>
+</table>
+    <input type="submit" value="Save" />
+}

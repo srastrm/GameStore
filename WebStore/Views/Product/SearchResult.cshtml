@@ -1,0 +1,50 @@
+﻿@model WebStore.ViewModels.ProductIndexViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search results for "@Model.SearchProduct":</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+
+    @foreach (var product in Model.Products)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink(
+            linkText: product.Name,
+            actionName: "View",
+            controllerName: "Product",
+            routeValues: new { id = product.ProductId },
+            htmlAttributes: null)
+        </td>
+        <td>@product.Description</td>
+        <td>@product.Price</td>
+        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+        {
+
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { Id = product.ProductId }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = product.ProductId }, new { onclick = "return confirm('Are you sure?');" })
+            </td>
+        }
+        else
+        {
+            <td></td>
+        }
+    </tr>
+    }
+
+</table>
+
+
+
+

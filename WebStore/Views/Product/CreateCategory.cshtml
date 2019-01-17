@@ -1,0 +1,30 @@
+﻿@model WebStore.ViewModels.CreateCategoryViewModel
+@{
+    ViewBag.Title = "CreateCategory";
+}
+
+<h2>Create Category</h2>
+
+<p>
+    <a href="javascript:history.back()">Back to List</a>
+</p>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>Name</td>
+            <td>
+                @Html.TextBoxFor(c => c.Name)
+                @Html.ValidationMessageFor(c => c.Name)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Save" />
+}
+

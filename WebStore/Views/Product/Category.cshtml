@@ -1,0 +1,84 @@
+﻿@model WebStore.ViewModels.ProductCategoryViewModel
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>Products in @Model.CategoryName</h2>
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin") || ViewContext.HttpContext.User.IsInRole("ProductManager"))
+{
+
+    <p>
+        @Html.ActionLink("Create New", "CreateProduct")
+    </p>
+    <p>
+        @Html.ActionLink("Back to list", "Index")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Back to list", "Index")
+    </p>
+}
+
+
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            @if (Model.CurrentSort == "NameAsc")
+            {
+                @Html.ActionLink("Name", "Category", new { sort = "NameDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Name", "Category", new { sort = "NameAsc" })
+            }
+        </th>
+        <th>Description</th>
+        <th>
+            @if (Model.CurrentSort == "PriceAsc")
+            {
+                @Html.ActionLink("Price", "Category", new { sort = "PriceDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Price", "Category", new { sort = "PriceAsc" })
+            }
+        </th>
+        <th></th>
+
+    </tr>
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(
+            linkText: product.Name,
+            actionName: "View",
+            controllerName: "Product",
+            routeValues: new { id = product.ProductId },
+            htmlAttributes: null)
+            </td>
+            <td>@product.Description</td>
+            <td>@product.Price</td>
+
+            @if (ViewContext.HttpContext.User.IsInRole("Admin") || ViewContext.HttpContext.User.IsInRole("ProductManager"))
+            {
+
+                <td>
+                    @Html.ActionLink("Edit", "EditProduct", new { Id = product.ProductId }) |
+                    @Html.ActionLink("Delete", "DeleteProduct", new { id = product.ProductId }, new { onclick = "return confirm('Are you sure?');" })
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+
+        </tr>
+    }
+</table>
